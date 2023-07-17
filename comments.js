@@ -1,26 +1,21 @@
-// Create a web server that can respond to requests for /comments.json with a JSON-encoded array of comments
+// Create a web server
 
+// 1. Load the http module
 var http = require('http');
-var fs = require('fs');
-var url = require('url');
 
-var server = http.createServer(function(req, res) {
-    var urlObj = url.parse(req.url);
-    if (urlObj.pathname === '/comments.json') {
-        fs.readFile('comments.json', function(err, data) {
-        if (err) {
-            console.error(err);
-            res.statusCode = 500;
-            res.end('Server error');
-            return;
-        }
-        res.end(data);
-        });
-    } else {
-        res.statusCode = 404;
-        res.end('Not found');
-    }
-    }
-);
+// 2. Create an http server
+var server = http.createServer(function (request, response) {
+  // 3.1. Get the path of the URL
+  var path = request.url;
+  // 3.2. Log the request path
+  console.log(path);
+  // 3.3. Write the response
+  response.write('Hello World!');
+  // 3.4. End the response
+  response.end();
+});
 
-server.listen(8080);
+// 4. Start the server
+server.listen(3000, function () {
+  console.log('Server started on port 3000');
+});
